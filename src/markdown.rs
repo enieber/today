@@ -1,4 +1,4 @@
-use std::io::{Write};
+use std::io::Write;
 use today::{create_file, open_file, generate_name_file_today, date_string};
 
 pub fn new_markdown(content: String) -> Result<String, String> {

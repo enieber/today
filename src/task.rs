@@ -1,6 +1,6 @@
 use sha2::{Digest, Sha256};
 use tracing::info;
-use std::io::{Write};
+use std::io::Write;
 use today::{generate_name_file_today, open_file, create_file};
 
 
