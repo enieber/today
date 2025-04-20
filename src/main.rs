@@ -6,13 +6,18 @@ use crate::weather::gererate_day_weather;
 use crate::markdown::{
     new_markdown,
     update_markdown,
-    add_task_markdown,
+};
+use crate::task::{
+    add_task,
+    done_task,
+    un_done_task,
 };
 use clap::Parser;
 
 mod cli;
 mod markdown;
 mod weather;
+mod task;
 
 #[tokio::main(flavor = "multi_thread")]
 async fn main() -> Result<()> {
@@ -32,15 +37,17 @@ async fn main() -> Result<()> {
             Ok(())
         },
         Commands::Add { task } => {
-            let _new_line_tasks = add_task_markdown(format!("{}", task));
+            let _new_line_tasks = add_task(format!("{}", task));
             Ok(())
         },
         Commands::Done { id }=> {
             info!("try done with id: {:?}", &id);
+            let _new_line_tasks = done_task(format!("{}", id));
             Ok(())
         },
         Commands::UnDone { id } => {
             info!("try undone with id: {:?}", &id);
+            let _new_line_tasks = un_done_task(format!("{}", id));
             Ok(())
         },
     }
