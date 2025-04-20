@@ -13,13 +13,13 @@ pub enum Commands {
     New,
     /// Add task today
     Add,
-    // /// Done task passing id
-    // Done {
-    //     /// id of task
-    //     id: String,
-    // },
-    // NotDone {
-    //     /// id of task
-    //     id: String,
-    // }
+    /// Done task passing id
+    Done {
+        /// id of task
+        id: String,
+    },
+    UnDone {
+        /// id of task
+        id: String,
+    }
 }
