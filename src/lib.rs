@@ -1,5 +1,7 @@
 use chrono::{Datelike, Local};
 use std::fmt::Write;
+use std::fs::{File, OpenOptions};
+use std::io::{BufRead, BufReader, Error, Lines};
 
 // ddmmYY.md = 8 chars
 pub fn generate_name_file_today() -> String {
@@ -48,4 +50,15 @@ pub fn date_string() -> String {
     .expect("Falha ao formatar a data");
 
     nome_arquivo
+}
+
+pub fn create_file(file_path: &str) -> Result<File, Error> {
+    let file = File::create(file_path);
+    return file;
+}
+
+
+pub fn open_file(file_path: &str) -> Result<File, Error> {
+    let file = OpenOptions::new().write(true).append(true).open(file_path);
+    return file;
 }

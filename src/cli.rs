@@ -12,7 +12,10 @@ pub enum Commands {
     /// New day genereate file
     New,
     /// Add task today
-    Add,
+    Add {
+        /// task of task
+        task: String,
+    },
     /// Done task passing id
     Done {
         /// id of task
