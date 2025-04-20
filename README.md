@@ -10,4 +10,6 @@ Today is manager using markdown with manager todo task.
 
 ## License
 
-MIT.
+
+
+MIT
