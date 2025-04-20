@@ -47,7 +47,7 @@ struct WeatherCity {
 async fn get_weather_city(code_city: String) -> Result<ResponseWeatherCity, String> {
     let url = format!("https://brasilapi.com.br/api/cptec/v1/clima/previsao/{code_city}");
     let response_await = reqwest::get(&url).await;
-    match (response_await) {
+    match response_await {
         Ok(response) => {
             info!("response_await: {:?}", response);
             let body = response.text().await.map_err(|_| "Failed to read response body".to_string())?;

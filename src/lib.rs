@@ -2,13 +2,13 @@ use chrono::{Datelike, Local};
 use tracing::info;
 use std::fmt::Write;
 use std::fs::{File, OpenOptions};
-use std::io::{BufRead, BufReader, Error, Lines};
+use std::io::Error;
 use std::env;
 
 fn read_base_file() -> String {
     match env::var("BASE_FILE") {
         Ok(val) => format!("{}", val),
-        Err(e) => format!("{}", "/tmp"),
+        Err(_e) => format!("{}", "/tmp"),
     }
 }
 
@@ -34,7 +34,7 @@ pub fn generate_name_file_today() -> String {
 
 pub fn day_weekly() -> String {
     let current_time = chrono::offset::Local::now();
-    let weekday = current_time.date().weekday();
+    let weekday = current_time.date_naive().weekday();
 
     let weekday_in_portuguese = match weekday {
         chrono::Weekday::Mon => "Segunda",
