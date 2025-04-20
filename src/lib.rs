@@ -1,7 +1,16 @@
 use chrono::{Datelike, Local};
+use tracing::info;
 use std::fmt::Write;
 use std::fs::{File, OpenOptions};
 use std::io::{BufRead, BufReader, Error, Lines};
+use std::env;
+
+fn read_base_file() -> String {
+    match env::var("BASE_FILE") {
+        Ok(val) => format!("{}", val),
+        Err(e) => format!("{}", "/tmp"),
+    }
+}
 
 // ddmmYY.md = 8 chars
 pub fn generate_name_file_today() -> String {
@@ -17,7 +26,10 @@ pub fn generate_name_file_today() -> String {
     )
     .expect("Falha ao formatar a data");
 
-    nome_arquivo
+    let base_file = read_base_file();
+    let file = format!("{}/{}", base_file, nome_arquivo);
+    info!("use file in: {}", file);
+    file
 }
 
 pub fn day_weekly() -> String {

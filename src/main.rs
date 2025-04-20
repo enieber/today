@@ -1,6 +1,7 @@
 use anyhow::Result;
 
 use cli::{Cli, Commands};
+use dotenv::dotenv;
 use tracing::info;
 use crate::weather::gererate_day_weather;
 use crate::markdown::{
@@ -21,6 +22,7 @@ mod task;
 
 #[tokio::main(flavor = "multi_thread")]
 async fn main() -> Result<()> {
+    dotenv().ok();
     tracing_subscriber::fmt()
           .with_max_level(tracing::Level::INFO)
           .init();
