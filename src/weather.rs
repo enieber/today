@@ -1,6 +1,7 @@
 use today::{day_weekly, date_string};
 use serde::{Serialize, Deserialize};
 use std::env;
+use tracing::{error, info};
 
 pub async fn gererate_day_weather() -> String {
     // city code based in in cptec //  244 = sao paulo
@@ -8,6 +9,7 @@ pub async fn gererate_day_weather() -> String {
     let response_by_city_result = get_weather_city(code_city).await;
     match response_by_city_result {
         Ok(response_by_city) => {
+            info!("response_by_city: {:?}", response_by_city);
             let weekly_text = day_weekly();
             let city = response_by_city.cidade;
             let clima = response_by_city.clima[0].clone();
@@ -15,7 +17,8 @@ pub async fn gererate_day_weather() -> String {
             let min = clima.min.clone();
             format!("{weekly_text} - {city} - max: {max} ºC min: {min} ºC")
         },
-        Err(_err) => {
+        Err(err) => {
+            error!("response_by_city: { }", err);
             let weekly_text = day_weekly();
             let date = date_string();
             format!("{weekly_text} - {date}")
@@ -26,14 +29,19 @@ pub async fn gererate_day_weather() -> String {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 struct ResponseWeatherCity {
     cidade: String,
+    estado: String,
+    atualizado_em: String,
     clima: Vec<WeatherCity>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 struct WeatherCity {
-    min: String,
-    max: String,
+    data: String,
+    min: i32,
+    max: i32,
+    condicao: String,
     condicao_desc: String,
+    indice_uv: i32,
 }
 
 async fn get_weather_city(code_city: String) -> Result<ResponseWeatherCity, String> {
@@ -41,12 +49,21 @@ async fn get_weather_city(code_city: String) -> Result<ResponseWeatherCity, Stri
     let response_await = reqwest::get(&url).await;
     match (response_await) {
         Ok(response) => {
-            let response_parse_await = response.json::<ResponseWeatherCity>().await;
+            info!("response_await: {:?}", response);
+            let body = response.text().await.map_err(|_| "Failed to read response body".to_string())?;
+            info!("response_body: {}", body);
+            let response_parse_await = serde_json::from_str::<ResponseWeatherCity>(&body);
             match response_parse_await {
                 Ok(response_parse) => Ok(response_parse),
-                Err(_err) => Err("Fail to parse".to_string())
+                Err(err) => {
+                    error!("Fail to parse: {}", err);
+                    Err("Fail to parse".to_string())
+                }
             }
         },
-      Err(_err) => Err("Fail to request".to_string())
+      Err(err) => {
+          error!("Fail to request: {}", err);
+          Err("Fail to request".to_string())
+      }
     }
 }
