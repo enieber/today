@@ -6,7 +6,7 @@ use std::io::Error;
 use std::env;
 
 fn read_base_file() -> String {
-    match env::var("BASE_FILE") {
+    match env::var("TODAY_BASE_FILE") {
         Ok(val) => format!("{}", val),
         Err(_e) => format!("{}", "/tmp"),
     }

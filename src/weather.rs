@@ -5,7 +5,7 @@ use tracing::{error, info};
 
 pub async fn gererate_day_weather() -> String {
     // city code based in in cptec //  244 = sao paulo
-    let code_city = env::var("CODE_CITY").unwrap_or("244".to_string());
+    let code_city = env::var("TODAY_CITY_CODE").unwrap_or("244".to_string());
     let response_by_city_result = get_weather_city(code_city).await;
     match response_by_city_result {
         Ok(response_by_city) => {
