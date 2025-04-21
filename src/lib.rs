@@ -19,10 +19,11 @@ pub fn generate_name_file_today() -> String {
 
     write!(
         &mut nome_arquivo,
-        "{:02}{:02}{:02}.md",
-        now.day(),
+        "{:02}-{:02}-{:02}.md",
+        now.year(),
         now.month(),
-        now.year()
+        now.day()
+
     )
     .expect("Falha ao formatar a data");
 
