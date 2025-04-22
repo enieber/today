@@ -1,5 +1,7 @@
 # Today
 
+![today logo](today-logo.svg)
+
 Today is manager using markdown with manager todo task.
 
 ## Features
