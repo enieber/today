@@ -13,9 +13,17 @@
      id="defs2" />
   <g
      id="layer1"
-     transform="translate(-37.42455,-23.094533)">
+     transform="translate(-37.42455,-22.9308)">
     <g
        id="g997">
+      <rect
+         style="fill:#ffffff;stroke:none;stroke-width:1.58"
+         id="rect364"
+         width="79.455399"
+         height="77.136269"
+         x="0.48992059"
+         y="1.5912825"
+         transform="translate(37.42455,22.9308)" />
       <rect
          style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.58;stroke-dasharray:none;stroke-opacity:1"
          id="rect2228"
@@ -87,8 +95,6 @@
            x="64.01194"
            y="93.014221" />
       </g>
-      <g
-         id="g2245" />
     </g>
   </g>
 </svg>
