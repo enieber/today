@@ -20,14 +20,15 @@ Today is manager using markdown with manager todo task.
   ```bash
   export TODAY_BASE_FILE=/home/$USER/tasks
   export TODAY_CITY_CODE=244
-
-  # alias to use with marmite live
-  # alias today-show="marmite $TODAY_BASE_FILE --watch --serve /home/$USER/live-task"
   ```
+
+## View using Marmite
+
 - to view list tasks use [marmite project](https://github.com/rochacbruno/marmite/) like: `marmite $TODAY_BASE_FILE live-tasks --serve`
 
-## License
+```bash
+  # alias to use with marmite live
+  alias today-show="marmite $TODAY_BASE_FILE --watch --serve /home/$USER/live-task"
+```
 
-
-
-MIT
+![image](https://github.com/user-attachments/assets/dea2fb3c-07ad-4fcd-b391-1686bad92d52)
