@@ -13,9 +13,10 @@ pub async fn gererate_day_weather() -> String {
             let weekly_text = day_weekly();
             let city = response_by_city.cidade;
             let clima = response_by_city.clima[0].clone();
+            let descript = clima.condicao_desc.clone();
             let max = clima.max.clone();
             let min = clima.min.clone();
-            format!("{weekly_text} - {city} - max: {max} ºC min: {min} ºC")
+            format!("{weekly_text} - {city} - max: {max} ºC min: {min} ºC \n\n{descript}")
         },
         Err(err) => {
             error!("response_by_city: { }", err);
