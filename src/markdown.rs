@@ -4,7 +4,7 @@ use today::{create_file, open_file, generate_name_file_today, date_string};
 pub fn new_markdown(content: String) -> Result<String, String> {
     let file_path = generate_name_file_today();
     let today_str = date_string();
-    let into = format!(r#"# Today - {}
+    let into = format!(r#"# {} - Daily
 
 {}
 
