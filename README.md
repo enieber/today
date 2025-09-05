@@ -16,6 +16,7 @@ Today is manager using markdown with manager todo task.
 - build release
 - use bin file
 - config env:
+- get city codbe by [api brasil api search](https://brasilapi.com.br/docs#tag/CPTEC/operation/searchcities(/cptec/v1/cidade/:cityName))
 
   ```bash
   export TODAY_BASE_FILE=/home/$USER/tasks
