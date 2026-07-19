@@ -46,9 +46,8 @@ pub fn add_task(content: String) -> Result<String, String> {
     }
 }
 
-pub fn un_done_task(id_task: String) -> Result<String, String> {
+fn find_task_in_file(id_task: String, old_file: Vec<String>) -> Result<String, String> {
     let file_path = generate_name_file_today();
-    let old_file = change_task(id_task, "".to_string());
     let file = create_file(&file_path);
     match file {
         Ok(mut file_buffer) => {
@@ -66,28 +65,18 @@ pub fn un_done_task(id_task: String) -> Result<String, String> {
             return Err(format!("Error to open file: {}", err));
         }
     }
+} 
+
+pub fn un_done_task(id_task: String) -> Result<String, String> {
+    let old_file = change_task(id_task.clone(), "".to_string());
+    let _result = find_task_in_file(id_task.clone(), old_file);
+    list_task()
 }
 
 pub fn done_task(id_task: String) -> Result<String, String> {
-    let file_path = generate_name_file_today();
-    let old_file = change_task(id_task, "x".to_string());
-    let file = create_file(&file_path);
-    match file {
-        Ok(mut file_buffer) => {
-            let has_write = writeln!(file_buffer, "{}", old_file.join("\n"));
-            match has_write {
-                Ok(_ok) => {
-                    return Ok(format!("Line write with success"));
-                }
-                Err(err) => {
-                    return Err(format!("Error to write file: {}", err));
-                }
-            }
-        }
-        Err(err) => {
-            return Err(format!("Error to open file: {}", err));
-        }
-    }
+    let old_file = change_task(id_task.clone(), "x".to_string());
+    let _result = find_task_in_file(id_task.clone(), old_file);
+    list_task()
 }
 
 fn change_task(id_task: String, new_state: String) -> Vec<String> {
@@ -108,10 +97,8 @@ fn change_task(id_task: String, new_state: String) -> Vec<String> {
 
     for line in std::fs::read_to_string(file_path).unwrap().lines() {
         if line.contains(&match_id) {
-            info!("match_id: {}", match_id);
             info!("done_id: {}", done_id);
             let new_line = str::replace(line, &match_id, &done_id);
-            info!("new_line line: {}", new_line);
             result.push(new_line)
         } else {
             result.push(line.to_string())
@@ -125,7 +112,7 @@ fn line_show(file_path: &str) -> Vec<String> {
     let mut result = Vec::new();
     let mut line_number = 0;
     for line in std::fs::read_to_string(file_path).unwrap().lines() {
-        if line_number >= 7 {
+        if line_number >= 1 {
             info!("{}", line);
             result.push(line.to_string());
         }
