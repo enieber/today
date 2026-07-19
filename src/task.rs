@@ -3,6 +3,11 @@ use tracing::info;
 use std::io::Write;
 use today::{generate_name_file_today, open_file, create_file};
 
+pub fn list_task() -> Result<String, String> {
+    let file_path = generate_name_file_today();
+    line_show(&file_path);
+    Ok(String::from("finish"))
+}
 
 fn generate_id_task(task: String) -> String {
     let header = format!("blob {}\0", task.len());
@@ -115,3 +120,17 @@ fn change_task(id_task: String, new_state: String) -> Vec<String> {
 
     result
 }
+
+fn line_show(file_path: &str) -> Vec<String> {
+    let mut result = Vec::new();
+    let mut line_number = 0;
+    for line in std::fs::read_to_string(file_path).unwrap().lines() {
+        if line_number >= 7 {
+            info!("{}", line);
+            result.push(line.to_string());
+        }
+        line_number +=1 ;
+    }
+    result
+}
+

@@ -11,6 +11,8 @@ pub struct Cli {
 pub enum Commands {
     /// New day genereate file
     New,
+    /// List tasks today
+    List,
     /// Add task today
     Add {
         /// task of task

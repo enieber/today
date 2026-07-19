@@ -11,6 +11,7 @@ use crate::markdown::{
 use crate::task::{
     add_task,
     done_task,
+    list_task,
     un_done_task,
 };
 use clap::Parser;
@@ -36,6 +37,10 @@ async fn main() -> Result<()> {
             let new_line_tasks = update_markdown("## Tasks ".to_string());
             info!("new_line_tasks {:?}", &new_line_tasks);
             let _new_line2 = update_markdown("".to_string());
+            Ok(())
+        },
+        Commands::List => {
+            list_task();
             Ok(())
         },
         Commands::Add { task } => {
